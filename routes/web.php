@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Backend\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,11 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin/login', function () {
     return view('backend.home');
 });
 
+
+Route::get('/admin/pages/home-page',[DashboardController::class,'homePages'])->name('admin.home-pages');
+Route::post('/admin/pages/saveBanner/{id?}',[DashboardController::class,'saveBanner'])->name('save.admin.home-pages');
+
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
