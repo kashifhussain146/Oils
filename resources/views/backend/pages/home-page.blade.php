@@ -25,7 +25,8 @@
     <section class="content">
 
         @include('backend.pages.sections.banner')
-
+        @include('backend.pages.sections.projects')
+        @include('backend.pages.sections.sectors')
     </section>
 
 

@@ -18,8 +18,10 @@ Route::get('/admin/login', function () {
 });
 
 
-Route::get('/admin/pages/home-page',[DashboardController::class,'homePages'])->name('admin.home-pages');
+Route::get('/admin/pages/home-page',[DashboardController::class,'homeBanner'])->name('admin.home-pages');
 Route::post('/admin/pages/saveBanner/{id?}',[DashboardController::class,'saveBanner'])->name('save.admin.home-pages');
+Route::post('/admin/pages/saveProjects/{id?}',[DashboardController::class,'saveProjects'])->name('save.admin.projects-pages');
+Route::post('/admin/pages/saveSectors/{id?}',[DashboardController::class,'saveSectors'])->name('save.admin.sectors-pages');
 
 
 Auth::routes();
