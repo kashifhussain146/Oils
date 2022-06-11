@@ -27,6 +27,9 @@
   <link rel="stylesheet" href="{{asset('backend/plugins/summernote/summernote-bs4.min.css')}}">
 
   <link rel="stylesheet" href="{{ asset('css/snackbar.css')}}" />
+  
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
 </head>
 
 @yield('pushcss')
@@ -90,6 +93,61 @@
         @yield('content')
     </div>
 
+    <div class="modal fade" id="show-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+          <div class="modal-header">
+
+            <h5 class="modal-title" id="title">New message</h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+              <span aria-hidden="true">×</span>
+
+            </button>
+
+          </div>
+
+          <div class="modal-body" id="show-form">
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    
+
+    
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        
+        <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel">Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            </button>
+        </div>
+        
+        <div class="modal-body text-center">
+            <p>Are you sure want to Execute this action?</p>
+        </div>
+
+        <div class="modal-footer justify-content-center">
+            <a id="delete_link" type="submit" class="btn btn-danger">Confirm</a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
    <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
@@ -145,9 +203,55 @@
 
 <script src="{{ asset('js/materialize.min.js')}}" charset="utf-8"></script>
 <script src="{{ asset('js/snackbar.js')}}" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
 
+    "use strict"
+
+    function confirm_modal(delete_url) {
+        jQuery('#confirm-delete').modal('show', {backdrop: 'static'});
+        document.getElementById('delete_link').setAttribute('href', delete_url);
+    }
+
+
+    $('.textarea').summernote({ placeholder: 'Start type content',
+        tabsize: 2,
+        height: 300,
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['fontsize', 'color','family']],
+            ['fontname', ['fontname']],
+            ['para', ['paragraph']],
+            ['insert', ['link','image', 'doc', 'video']], // image and doc are customized buttons
+            ['misc', ['codeview']],
+          ]
+      });
+    
+  //show the modal in this function
+  function forModal(url, message) {
+      $("#show-modal").modal("show");
+      // $("#show-modal").dialog("open");
+      $("#title").text(   message);
+      $("#show-form").load(url);
+      $("body").on("shown.bs.modal", ".modal", function () {
+          $(this)
+              .find("select")
+              .each(function () {
+                  var dropdownParent = $(document.body);
+                  if ($(this).parents(".modal.in:first").length !== 0)
+                      dropdownParent = $(this).parents(".modal.in:first");
+                  $(this).select2({
+                      dropdownParent: dropdownParent,
+                      templateResult: formatState,
+                      templateSelection: formatState,
+                  });
+
+              });
+      });
+  }
 
     function buttonLoading(processType, ele){
         if(processType == 'loading'){
@@ -199,9 +303,10 @@
         buttonLoading('loading', $this);
         $('.is-invalid').removeClass('is-invalid state-invalid');
         $('.invalid-feedback').remove();
+        $()
         $.ajax({
             url: $('#'+formID).attr('action'),
-            type: "POST",
+            type: $(this).attr('method'),
             processData: false,  // Important!
             contentType: false,
             cache: false,
@@ -236,11 +341,14 @@
                     errorMsg('', data.responseJSON.message);
 
                     if(data.responseJSON.errors){
+                       var errorDiv = '';
 
                         $.each(data.responseJSON.errors, function(fieldName, field){
                             $.each(field, function(index, msg){
-                                $('#'+fieldName).addClass('is-invalid state-invalid');
-                                errorDiv = $('#'+fieldName).parent('div');
+                                $('#'+formID+' #'+fieldName).addClass('is-invalid state-invalid');
+                                errorDiv = $('#'+formID+' #'+fieldName).parent('form-group');
+                                console.log(errorDiv);
+
                                 errorDiv.append('<div class="invalid-feedback">'+msg+'</div>');
                             });
                         });
@@ -257,6 +365,22 @@
         return false;
 
         });
+
+        $('input[type="checkbox"]').change(function () {
+        var url = this.dataset.url;
+        var id = this.dataset.id;
+
+        if (url != null && id != null) {
+            $.ajax({
+                url: url,
+                data: { id: id },
+                method: "get",
+                success: function (result) {
+                  errorMsg('', result.message);
+                },
+            });
+        }
+    });
 
 
         $(document).on('click','.deleteButton', function(){
@@ -361,5 +485,7 @@
 
 
 </script>
+
+
 </body>
 </html>

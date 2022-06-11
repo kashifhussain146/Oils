@@ -111,17 +111,28 @@
                     aria-haspopup="true" aria-expanded="false">Home</a>
 
                 </li>
+                
+
+
+
+
+                @php
+                  // echo "<pre>";print_r($is_menu);
+                  //   exit;
+                @endphp
+                @foreach ($is_menu as $item)
                 <li class="dropdown nav-item mega-menu">
-                  <a href="./about-us.php" class="nav-link" data-bs-toggle="dropdown">About Us </a>
+                  <a href="./about-us.php" class="nav-link" data-bs-toggle="dropdown">{{$item->title}} </a>
                   <ul class="dropdown-menu megamenu">
+                    
+                    
                     <li>
                       <div class="row m-0">
                         <div class="col-md-5  col-12 bg-blue-patern pr-80 pl-80 mega-left">
                           <div class="py-5 my-2">
                             <div class="simple-mega-menu mega-menu-item ">
                               <div class="clearfix ">
-                                <p>The United Petro Group is a global energy trading company. UPG was founded by Dr. Ganapathi Dhiwaghar. United Petro has its
-                                  presence globally at Singapore, United Arab Emirates, China, Netherlands and in Ireland.
+                                <p style="color:white!important">{!!($item->content->first())?$item->content->first()->body:''!!}
                                 </p>
                               </div>
                               <div class="cta text-white">
@@ -134,28 +145,45 @@
                         <div class="col-md-6 col-12 pr-80 pl-80 mega-right">
                           <div class="row m-0 py-5 my-2">
                             <div class="col-md-6 col-12">
-                              <h6 class="mb-1 nav-title fw-600 f-18"><a class="text-black" href="#">About Us</a></h6>
+                              <h6 class="mb-1 nav-title fw-600 f-18"><a class="text-black" href="#">{{$item->title}}</a></h6>
                               <ul class="list-unstyled mt-lg-3">
                                 <!-- <li><a href="#" class="fw-600  f-18">Over View </a></li> -->
-                                <li><a href="./about-us.php#united-petro-group-story" class="fw-600">Our Story </a></li>
-                                <li><a href="./about-us.php#united-petro-group-history" class="fw-600">Our History </a></li>
-                                <li><a href="./about-us.php#united-petro-group-statements" class="fw-600">Our Statements </a></li>
-                                <li><a href="./about-us.php#united-petro-group-values" class="fw-600">Our Values </a></li>
+                                @if($item->content->count() > 0)
+                                    @foreach ($item->content as $key=>$vals)
+                                    <li><a href="{{route('page.details',
+                                          [
+                                            'page_slug'=>$item->slug,
+                                            'content_slug'=>$vals->slug
+                                          ]
+                                          )}}" class="fw-600">{{$vals->title}} </a></li>
+                                    @endforeach
+                                @endif
                               </ul>
                             </div>
-                            <div class="col-md-6 col-12">
-                              <h6 class="mb-1 nav-title fw-600 f-18"><a class="text-black" href="#">Group Charman's
-                                  Message</a></h6>
-                            </div>
+                            {{-- <div class="col-md-6 col-12">
+                              <h6 class="mb-1 nav-title fw-600 f-18"><a class="text-black" href="#">Group Charman's Message</a></h6>
+                            </div> --}}
                           </div>
 
                         </div>
 
                       </div>
                     </li>
+
+
+
                   </ul>
-                </li>
-                <li class="dropdown nav-item mega-menu">
+                </li> 
+                @endforeach
+
+
+
+
+
+
+
+
+                {{-- <li class="dropdown nav-item mega-menu">
                   <a href="#" class="nav-link" data-bs-toggle="dropdown">Our Businesses </a>
                   <ul class="dropdown-menu megamenu">
                     <li>
@@ -380,7 +408,7 @@
                       </form>
                     </div>
                   </div>
-                </li>
+                </li> --}}
               </ul>
             </div>
 

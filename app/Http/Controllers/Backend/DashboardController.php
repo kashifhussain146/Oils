@@ -7,6 +7,10 @@ use App\Models\Banner;
 use App\Models\Projects;
 use App\Models\Sectors;
 use Validator;
+use App\Models\Page;
+use App\Models\PageContent;
+use App\Models\PageGroup;
+
 
 class DashboardController extends Controller
 {
@@ -42,6 +46,8 @@ class DashboardController extends Controller
         $data['banner_store_url']   =  route('save.admin.home-pages');
         $data['projects_store_url'] =  route('save.admin.projects-pages');
         $data['sectors_store_url']  =  route('save.admin.sectors-pages');
+        
+        
 
         return view('backend.pages.home-page',$data);
     }

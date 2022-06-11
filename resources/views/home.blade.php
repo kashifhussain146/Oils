@@ -11,7 +11,9 @@
     <section class="banner">
         <div class="swiper-container">
           <div class="swiper-wrapper h-700 h-sm-500">
-            <div class="swiper-slide banner-1 d-flex responsive-overlap-md bg-overlay-black-30">
+            
+            
+            {{-- <div class="swiper-slide banner-1 d-flex responsive-overlap-md bg-overlay-black-30">
               <div class="video-wrapper">
                 <video playsinline autoplay muted loop poster="{{asset('images/project/place-2.png')}}" data-wf-ignore="true" muted="true" loop="true" data-object-fit="cover" autoplay="true">
                   <source src="{{asset('images/video/united-petrol.mp4')}}" type="video/webm">
@@ -29,22 +31,30 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="swiper-slide banner-2 align-items-center d-flex responsive-overlap-md bg-overlay-black-30">
-              <div class="swipeinner container ">
-                <div class="row ">
-                  <div class="col-lg-9 col-md-11  position-relative">
-                    <h1 data-swiper-animation="fadeInUp" data-duration="1s" data-delay="0.25s">Increasing Production With
-                      Natural Resources</h1>
-                    <h6 data-swiper-animation="fadeInUp" data-duration="1s" data-delay="0.5s">We want to foster a culture
-                      that values knowledge of these biological environments, its plants and animals, and encourages their
-                      preservation.</h6>
-                    <a class="btn btn-dark btn-round text-white" data-swiper-animation="fadeInUp" data-duration="1s"
-                      data-delay="0.75s" href="#">View Our Solution<i class="fas fa-arrow-right ps-3 w-30px"></i></a>
+            </div> --}}
+
+            @if(isset($banner))
+              @foreach ($banner->content as $key=>$item)
+                <div class="swiper-slide banner-2 align-items-center d-flex responsive-overlap-md bg-overlay-black-30" style="background-image: url({{asset(''.$item->file)}});">
+                  <div class="swipeinner container ">
+                    <div class="row ">
+                      <div class="col-lg-9 col-md-11  position-relative">
+                        <h1 data-swiper-animation="fadeInUp" data-duration="1s" data-delay="0.25s">
+                          {{$item->title}}
+                        </h1>
+                        <h6 data-swiper-animation="fadeInUp" data-duration="1s" data-delay="0.5s">
+                          {!!$item->body!!}
+                        </h6>
+                        <a class="btn btn-dark btn-round text-white" data-swiper-animation="fadeInUp" data-duration="1s"
+                          data-delay="0.75s" href="#">View Our Solution<i class="fas fa-arrow-right ps-3 w-30px"></i></a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              @endforeach
+            @endif
+
+{{--             
             <div class="swiper-slide banner-3 align-items-center d-flex responsive-overlap-md bg-overlay-black-30">
               <div class="swipeinner container ">
                 <div class="row ">
@@ -89,7 +99,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> --}}
           </div>
           <div class="swiper-button-prev"><i class="fas fa-arrow-left "></i></div>
           <div class="swiper-button-next"><i class="fas fa-arrow-right "></i></div>
@@ -183,25 +193,29 @@
                 <!-- owl carousel -->
                 <div class="owl-carousel text-start" data-nav-dots="true" data-items="3" data-md-items="3" data-sm-items="2" data-xs-items="1" data-xx-items="1">
                   <!--Item  Start-->
-                  <div class="items">
-                    <div class="feature-info feature-info-style-077 text-center">
-                      <div class="feature-info-img">
-                        <img class="img-fluid" src="{{asset('images/project/place-1.png')}}" alt="">
+
+                  @if(isset($projects))
+                    @foreach ($projects->content as $key=>$item)
+                      <div class="items">
+                        <div class="feature-info feature-info-style-077 text-center">
+                          <div class="feature-info-img">
+                            <img class="img-fluid" src="{{asset(''.$item->file)}}" alt="">
+                          </div>
+                          <div class="feature-info-content">
+                            <h4 class="feature-info-title">{{$item->title}}</h4>
+                            <div class="feature-p-c">
+                              {!!$item->body!!}
+                          </div>
+                            <a href="#" class="read-more-product">Read More <i class="fas fa-angle-double-right"></i></i></a>
+                          </div>
+                        </div>
                       </div>
-                      <div class="feature-info-content">
-                        <h4 class="feature-info-title">Mexico</h4>
-                        <div class="feature-p-c">
-                         <p class="mb-0">-500 million barrels Crude oil Tank Farms</p>
-                         <p>-5 million barrels Petroleum products tank farms</p>
-                       </div>
-                        <a href="#" class="read-more-product">Read More <i class="fas fa-angle-double-right"></i></i></a>
-                      </div>
-                    </div>
-                  </div>
+                    @endforeach
+                  @endif
                   <!--Item  Stop-->
 
                   <!--Item  Start-->
-                  <div class="items">
+                  {{-- <div class="items">
                     <div class="feature-info feature-info-style-077 text-center">
                       <div class="feature-info-img">
                         <img class="img-fluid" src="{{asset('images/project/place-2.png')}}" alt="">
@@ -214,77 +228,10 @@
                         <a href="#" class="read-more-product">Read More <i class="fas fa-angle-double-right"></i></a>
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
                   <!--Item  Stop-->
 
-                  <!--Item  Start-->
-                  <div class="items">
-                    <div class="feature-info feature-info-style-077 text-center">
-                      <div class="feature-info-img">
-                        <img class="img-fluid" src="{{asset('images/project/floating-store.jpg')}}" alt="">
-                      </div>
-                      <div class="feature-info-content">
-                        <h4 class="feature-info-title">Malaysia</h4>
-                        <div class="feature-p-c">
-                          <p>An Aframax vessel is an oil tanker with a deadweight between 80,000 and 120,000 metric tonnes.</p>
-                        </div>
-                        <a href="#" class="read-more-product">Read More <i class="fas fa-angle-double-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <!--Item  Stop-->
-
-                  <!--Item  Start-->
-                  <div class="items">
-                    <div class="feature-info feature-info-style-077 text-center">
-                      <div class="feature-info-img">
-                        <img class="img-fluid" src="{{asset('images/project/place-1.png')}}" alt="">
-                      </div>
-                      <div class="feature-info-content">
-                        <h4 class="feature-info-title">Mexico</h4>
-                        <div class="feature-p-c">
-                         <p class="mb-0">-500 million barrels Crude oil Tank Farms</p>
-                         <p>-5 million barrels Petroleum products tank farms</p>
-                       </div>
-                        <a href="#" class="read-more-product">Read More <i class="fas fa-angle-double-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <!--Item  Stop-->
-
-                  <!--Item  Start-->
-                  <div class="items">
-                    <div class="feature-info feature-info-style-077 text-center">
-                      <div class="feature-info-img">
-                        <img class="img-fluid" src="{{asset('images/project/place-2.png')}}" alt="">
-                      </div>
-                      <div class="feature-info-content">
-                        <h4 class="feature-info-title">South Africa</h4>
-                        <div class="feature-p-c">
-                          <p>Crude Oil Tank Storage -21 million barrels facilities at Sulthana Bay, South Africa</p>
-                        </div>
-                        <a href="#" class="read-more-product">Read More <i class="fas fa-angle-double-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <!--Item  Stop-->
-
-                  <!--Item  Start-->
-                  <div class="items">
-                    <div class="feature-info feature-info-style-077 text-center">
-                      <div class="feature-info-img">
-                        <img class="img-fluid" src="{{asset('images/project/floating-store.jpg')}}" alt="">
-                      </div>
-                      <div class="feature-info-content">
-                        <h4 class="feature-info-title">Malaysia</h4>
-                        <div class="feature-p-c">
-                          <p>An Aframax vessel is an oil tanker with a deadweight between 80,000 and 120,000 metric tonnes.</p>
-                        </div>
-                        <a href="#" class="read-more-product">Read More <i class="fas fa-angle-double-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <!--Item  Stop-->
+                
 
                 </div>
               </div>
@@ -306,28 +253,33 @@
               </div>
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6 col-12">
-                  <div class="product-and-services-section-content bg-white">
-                   <div class="p-s-content-inner">
-                    <div class="d-flex font-xl space-pb-p-s">
-                      <div class="p-s-img">
-                         <img src="{{asset('images/service/research.png')}}" alt="History Image">
+               
+              @foreach ($services->content as $item)
+                  <div class="col-md-4 col-sm-6 col-12">
+                      <div class="product-and-services-section-content bg-white">
+                      <div class="p-s-content-inner">
+                        <div class="d-flex font-xl space-pb-p-s">
+                          <div class="p-s-img">
+                            <img src="{{asset(''.$item->file)}}" alt="History Image">
+                          </div>
+                          <div class="p-s-conent">
+                            <p class="p-s-conent-h mb-0 text-blue">{{$item->title}}</p>
+                            <p class="p-s-conent-p mb-0 ">{!!$item->body!!}</p>
+                          </div>
+                        </div>
+                        <div class="p-s-conent-read-more ">
+                          <a href="#" class="">
+                            <span>Read More</span>
+                            <span><i class="fas fa-arrow-right ps-3 w-30px"></i></span>
+                          </a>
+                        </div>
                       </div>
-                      <div class="p-s-conent">
-                        <p class="p-s-conent-h mb-0 text-blue">Trading</p>
-                        <p class="p-s-conent-p mb-0 ">Part of United oil and Gas which was established in 2004.</p>
                       </div>
                     </div>
-                    <div class="p-s-conent-read-more ">
-                      <a href="#" class="">
-                        <span>Read More</span>
-                        <span><i class="fas fa-arrow-right ps-3 w-30px"></i></span>
-                      </a>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-12">
+              @endforeach
+
+
+                {{-- <div class="col-md-4 col-sm-6 col-12">
                   <div class="product-and-services-section-content bg-white">
                    <div class="p-s-content-inner">
                     <div class="d-flex font-xl space-pb-p-s">
@@ -347,70 +299,8 @@
                     </div>
                   </div>
                   </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-12">
-                  <div class="product-and-services-section-content bg-white">
-                   <div class="p-s-content-inner">
-                    <div class="d-flex font-xl space-pb-p-s">
-                      <div class="p-s-img">
-                         <img src="{{asset('images/service/ship.png')}}" alt="History Image">
-                      </div>
-                      <div class="p-s-conent">
-                        <p class="p-s-conent-h mb-0 text-blue">Shipping</p>
-                        <p class="p-s-conent-p mb-0 ">Part of United oil and Gas which was established in 2004.</p>
-                      </div>
-                    </div>
-                    <div class="p-s-conent-read-more ">
-                      <a href="#" class="">
-                        <span>Read More</span>
-                        <span><i class="fas fa-arrow-right ps-3 w-30px"></i></span>
-                      </a>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-12">
-                  <div class="product-and-services-section-content bg-white">
-                   <div class="p-s-content-inner">
-                    <div class="d-flex font-xl space-pb-p-s">
-                      <div class="p-s-img">
-                         <img src="{{asset('images/service/oil-industry.png')}}" alt="History Image">
-                      </div>
-                      <div class="p-s-conent">
-                        <p class="p-s-conent-h mb-0 text-blue">Contract Refinery</p>
-                        <p class="p-s-conent-p mb-0 ">Part of United oil and Gas which was established in 2004.</p>
-                      </div>
-                    </div>
-                    <div class="p-s-conent-read-more ">
-                      <a href="#" class="">
-                        <span>Read More</span>
-                        <span><i class="fas fa-arrow-right ps-3 w-30px"></i></span>
-                      </a>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-12">
-                  <div class="product-and-services-section-content bg-white">
-                   <div class="p-s-content-inner">
-                    <div class="d-flex font-xl space-pb-p-s">
-                      <div class="p-s-img">
-                         <img src="{{asset('images/service/investment.png')}}" alt="History Image">
-                      </div>
-                      <div class="p-s-conent">
-                        <p class="p-s-conent-h mb-0 text-blue">Investments</p>
-                        <p class="p-s-conent-p mb-0 ">Part of United oil and Gas which was established in 2004.</p>
-                      </div>
-                    </div>
-                    <div class="p-s-conent-read-more ">
-                      <a href="#" class="">
-                        <span>Read More</span>
-                        <span><i class="fas fa-arrow-right ps-3 w-30px"></i></span>
-                      </a>
-                    </div>
-                  </div>
-                  </div>
-                </div>
+                </div> --}}
+                
             </div>
           </div>
         </section>
@@ -432,25 +322,31 @@
               </div>
               <div class="row justify-content-center">
                 <!--Count item start-->
-                <div class="col-md-3 col-sm-6 col-6">
-                  <div class="counter br-c justify-content-center text-center pt-0 pb-4 pb-md-0">
-                    <div class="counter-content">
-                      <div class="counter-content-img ">
-                        <img class="bg-blue" src="{{asset('images/icons/experience.png')}}" alt="image">
-                      </div>
-                      <div class="counter-content-number mt-3 mb-2">
-                        <span class="timer text-dark" data-to="18" data-speed="1000">18</span><span class="timer1 text-dark">+</span>
-                      </div>
-                      <div class="counter-content-p">
-                        <p>Years of Experience</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+                
+                @if(isset($consistent_delivery))
+                    @foreach ($consistent_delivery->content as $key=>$item)
+                        <div class="col-md-3 col-sm-6 col-6">
+                          <div class="counter br-c justify-content-center text-center pt-0 pb-4 pb-md-0">
+                            <div class="counter-content">
+                              <div class="counter-content-img ">
+                                <img class="bg-blue" src="{{asset(''.$item->file)}}" alt="image">
+                              </div>
+                              <div class="counter-content-number mt-3 mb-2">
+                                <span class="timer text-dark" data-to="18" data-speed="1000">{{$item->title}}</span><span class="timer1 text-dark">+</span>
+                              </div>
+                              <div class="counter-content-p">
+                                <p>{!!$item->body!!}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    @endforeach
+                @endif
                 <!--Count item End-->
 
                 <!--Count item start-->
-                <div class="col-md-3 col-sm-6 col-6">
+                {{-- <div class="col-md-3 col-sm-6 col-6">
                   <div class="counter br-c justify-content-center text-center pt-0 pb-4 pb-md-0">
                     <div class="counter-content">
                       <div class="counter-content-img ">
@@ -464,44 +360,10 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> --}}
                 <!--Count item End-->
 
-                <!--Count item start-->
-                <div class="col-md-3 col-sm-6 col-6">
-                  <div class="counter br-c justify-content-center text-center pt-0 pb-4 pb-md-0">
-                    <div class="counter-content">
-                      <div class="counter-content-img ">
-                        <img class="bg-blue" src="{{asset('images/icons/group.png')}}" alt="image">
-                      </div>
-                      <div class="counter-content-number mt-3 mb-2">
-                        <span class="timer text-dark" data-to="106" data-speed="1000">106</span><span class="timer1 text-dark">+</span>
-                      </div>
-                      <div class="counter-content-p">
-                        <p>Global Clients</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!--Count item End-->
-
-                <!--Count item start-->
-                <div class="col-md-3 col-sm-6 col-6">
-                  <div class="counter justify-content-center text-center pt-0 pb-4 pb-md-0">
-                    <div class="counter-content">
-                      <div class="counter-content-img ">
-                        <img class="bg-blue" src="{{asset('images/icons/coronavirus.png')}}" alt="image">
-                      </div>
-                      <div class="counter-content-number mt-3 mb-2">
-                        <span class="timer text-dark" data-to="16" data-speed="1000">16</span><span class="timer1 text-dark">+</span>
-                      </div>
-                      <div class="counter-content-p">
-                        <p>Serving Countries</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!--Count item End-->
+               
               </div>
             </div>
           </section>
@@ -521,22 +383,26 @@
               </div>
               <div class="sectors-row ">
                 <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-1-img img-cover-s" >
-                    <button class="">Crude & Petroleum Products Trading</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Crude & Petroleum Products Trading</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
+                @if(isset($sectors))
+                    @foreach ($sectors->content as $item)
+                        <div class="sectors">
+                          <div class="sectors-inner sectors-inner-item">
+                            <div class="sectors-inner-img case-study-lg sector-1-img img-cover-s"  style="background-image: url({{asset(''.$item->file)}});">
+                            <button class="">{{$item->title}}</button>
+                            </div>
+                            <div class="sectors-inner-info">
+                              <a class="sectors-inner-title fw-bold text-white" href="#">{{$item->title}}</a>
+                              <p class="mt-2 text-white">{!!$item->body!!}</p>
+                              <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                    @endforeach
+                @endif
                 <!-- Sector End-->
 
                 <!-- Sector Start-->
-                <div class="sectors">
+                {{-- <div class="sectors">
                   <div class="sectors-inner sectors-inner-item">
                     <div class="sectors-inner-img case-study-lg sector-2-img img-cover-s" >
                     <button class="">Offshore Supply Base</button>
@@ -547,158 +413,10 @@
                       <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
                     </div>
                   </div>
-                </div>
+                </div> --}}
                 <!-- Sector End-->
 
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-3-img img-cover-s" >
-                    <button class="">Crude Oil Tank Farms Storage</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Crude Oil Tank Farms Storage</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
-
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-4-img img-cover-s" >
-                    <button class="">Oil Rigs Repairs & Maintenance</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Oil Rigs Repairs & Maintenance</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
-
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-5-img img-cover-s" >
-                    <button class="">Refinery</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Refinery</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
-
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-6-img img-cover-s" >
-                    <button class="">Shipping & Logistics</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Shipping & Logistics</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
-
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-7-img img-cover-s" >
-                    <button class="">Oil & Gas Projects</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Oil & Gas Projects</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
-
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-8-img img-cover-s" >
-                    <button class="">Investments</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Investments</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
-
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-9-img img-cover-s" >
-                    <button class="">Oil Port</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Oil Port</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
-
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-10-img img-cover-s" >
-                    <button class="">Petrochemicals</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Petrochemicals</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
-
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-11-img img-cover-s" >
-                    <button class="">Tanker Supply</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Tanker Supply</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
-
-                <!-- Sector Start-->
-                <div class="sectors">
-                  <div class="sectors-inner sectors-inner-item">
-                    <div class="sectors-inner-img case-study-lg sector-12-img img-cover-s" >
-                    <button class="">Petroleum Products Tank Farms</button>
-                    </div>
-                    <div class="sectors-inner-info">
-                      <a class="sectors-inner-title fw-bold text-white" href="#">Petroleum Products Tank Farms</a>
-                      <p class="mt-2 text-white">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print …</p>
-                      <a href="#" class="icon-btn"><i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sector End-->
+              
 
 
               </div>
